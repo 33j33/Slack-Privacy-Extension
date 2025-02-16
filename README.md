@@ -1,0 +1,1 @@
+# Slack-Privacy-Extension
