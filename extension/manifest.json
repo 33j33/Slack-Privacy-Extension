@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Slack Privacy Extension",
+  "version": "0.0.1",
+  "description": "Protect your privacy in Slack by hiding your conversations",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.slack.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.slack.com/*"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "commands": {
+    "toggle-privacy": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+1",
+        "mac": "Command+Shift+1"
+      },
+      "description": "Toggle Privacy Mode",
+      "global": true
+    }
+  },
+  "icons": {
+    "12": "hidden12.png",
+    "16": "hidden16.png",
+    "32": "hidden48.png",
+    "48": "hidden48.png",
+    "64": "hidden48.png",
+    "128": "hidden128.png"
+  }
+}

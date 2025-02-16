@@ -1,0 +1,25 @@
+{
+  "name": "slack-extension",
+  "version": "0.0.1",
+  "description": "Slack Privacy Extension",
+  "main": "popup.js",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --minify",
+    "watch": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slack",
+    "privacy",
+    "blur",
+    "privacy-screenshare",
+    "hide-messages",
+    "blur-messages"
+  ],
+  "author": "33j33",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "latest",
+    "@tailwindcss/cli": "latest"
+  }
+}

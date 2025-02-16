@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack Privacy Settings</title>
+    <link href="tailwind.css" rel="stylesheet">
+</head>
+
+<body class="w-80 p-4 bg-gray-900 text-gray-100">
+    <header class="mb-3">
+        <h1 class="text-xl font-semibold text-gray-100">Slack Privacy Extension</h1>
+    </header>
+    <hr class="border-gray-300 mb-3">
+    <main>
+        <div class="space-y-4">
+            <!-- Main Toggle -->
+            <div class="flex items-center justify-between">
+                <label class="font-medium">Privacy Toggle</label>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="mainToggle" class="sr-only peer" checked>
+                    <div
+                        class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                    </div>
+                </label>
+            </div>
+
+            <p class="text-xs text-gray-400 italic">
+                Shortcut: <span class="font-mono">
+                    <span id="macShortcut">⌘⇧1</span>
+                    <span id="windowsShortcut">Ctrl+Shift+1</span>
+                </span>
+            </p>
+
+            <hr class="border-gray-700">
+
+            <!-- Settings Panel -->
+            <div id="settingsPanel" class="space-y-4">
+                <!-- Media Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="font-medium">Blur Media</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="mediaToggle" class="sr-only peer" checked>
+                        <div
+                            class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Link Preview Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="font-medium">Blur Link Previews</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="linkToggle" class="sr-only peer" checked>
+                        <div
+                            class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Blur Public Channels Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="font-medium">Blur Public Channels</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="publicChannelsToggle" class="sr-only peer">
+                        <div
+                            class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Blur Huddle Messages Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="font-medium">Blur Huddle Messages</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="huddleMessagesToggle" class="sr-only peer">
+                        <div
+                            class="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Hover Timeout -->
+                <div class="flex items-center justify-between">
+                    <label class="font-medium">Hover Timeout</label>
+                    <input type="number" id="hoverTimeout" min="0" max="10" step="0.1" value="1" class="w-14 px-1 py-1 text-right 
+                        bg-gray-800 
+                        border border-gray-700
+                        rounded-md
+                        text-gray-100
+                        focus:outline-none focus:ring-2 focus:ring-blue-500
+                        hover:bg-gray-700">
+                </div>
+
+                <hr class="border-gray-700 m-2">
+            </div>
+
+        </div>
+    </main>
+    <script src="popup.js"></script>
+</body>
+
+</html>
