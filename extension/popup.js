@@ -69,13 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentSettings = settings
     // Notify content script
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]) {
-        chrome.tabs.sendMessage(tabs[0].id, {
+    chrome.tabs.query({ url: "https://*.slack.com/*" }, (tabs) => {
+      tabs.forEach(tab => {
+        chrome.tabs.sendMessage(tab.id, {
           type: 'settingsUpdated',
           settings
         });
-      }
+      });
     });
   };
 

@@ -29,13 +29,30 @@ function applyPrivacySettings() {
 
 
 async function init() {
-  const settings = await chrome.storage.local.get(defaultSettingsKeys);
-  if (settings) {
-    currentSettings = { ...defaultSettings, ...settings }
-  } else {
-    currentSettings = defaultSettings
+  try {
+    const settings = await chrome.storage.local.get(defaultSettingsKeys);
+    // chrome.storage.local.get() returns an empty object {} when no settings exist
+    
+    const hasExistingSettings = Object.keys(settings).length > 0;
+    
+    if (hasExistingSettings) {
+      currentSettings = { ...defaultSettings, ...settings };
+      console.log(`${LOG_PREFIX}::init::Loaded existing settings`, currentSettings);
+    } else {
+      // No settings found in storage, use defaults and save them
+      currentSettings = defaultSettings;
+      await chrome.storage.local.set(defaultSettings);
+      console.log(`${LOG_PREFIX}::init::No settings found, applied defaults`, currentSettings);
+    }
+    
+    // Apply the settings to the page
+    applyPrivacySettings();
+  } catch (error) {
+    console.error(`${LOG_PREFIX}::init::Error initializing`, error);
+    // Fallback to defaults in case of error
+    currentSettings = defaultSettings;
+    applyPrivacySettings();
   }
-  applyPrivacySettings()
 }
 
 
