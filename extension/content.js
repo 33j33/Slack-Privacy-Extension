@@ -1,3 +1,4 @@
+const LOG_PREFIX = "content.js"
 const defaultSettings = {
   enabled: true,
   blurMedia: true,
@@ -7,7 +8,9 @@ const defaultSettings = {
   hoverTimeout: 1
 };
 
-let currentSettings = {...defaultSettings};
+const defaultSettingsKeys = Object.keys(defaultSettings)
+
+let currentSettings = {};
 
 function applyPrivacySettings() {
   document.documentElement.style.setProperty('--hover-timeout', `${currentSettings.hoverTimeout}s`);
@@ -18,31 +21,29 @@ function applyPrivacySettings() {
     'blur-public-channels': currentSettings.blurPublicChannels,
     'blur-huddle-messages': currentSettings.blurHuddleMessages
   };
-  
+
   Object.entries(classesToToggle).forEach(([className, enabled]) => {
     document.body.classList.toggle(className, enabled);
   });
 }
 
-async function getSettingsFromStorage() {
-  try {
-    const settings = await chrome.storage.sync.get(defaultSettings);
-    currentSettings = settings;
-    return settings;
-  } catch (error) {
-    console.error('Error getting settings:', error);
-    return defaultSettings;
+
+async function init() {
+  const settings = await chrome.storage.local.get(defaultSettingsKeys);
+  if (settings) {
+    currentSettings = { ...defaultSettings, ...settings }
+  } else {
+    currentSettings = defaultSettings
   }
+  applyPrivacySettings()
 }
 
-async function setSettingsToStorage(settings) {
-  try {
-    await chrome.storage.sync.set(settings);
-    currentSettings = settings;
-  } catch (error) {
-    console.error('Error saving settings:', error);
-  }
-}
+
+// initialising 
+init().then(() => {
+  console.log(`${LOG_PREFIX}::init`)
+})
+
 
 // Listen for settings updates
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -51,6 +52,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     applyPrivacySettings();
   }
 });
-
-// Initialize
-init().catch(error => console.error('Error during initialization:', error));

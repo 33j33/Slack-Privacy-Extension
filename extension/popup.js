@@ -1,3 +1,17 @@
+const LOG_PREFIX = "popup.js"
+const defaultSettings = {
+  enabled: true,
+  blurMedia: true,
+  blurLinkPreviews: true,
+  blurHuddleMessages: true,
+  blurPublicChannels: false,
+  hoverTimeout: 1
+};
+
+const defaultSettingsKeys = Object.keys(defaultSettings)
+
+let currentSettings = {};
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // show appropriate shortcut based on platform os
@@ -6,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('windowsShortcut').style.display = "none";
   } else {
     document.getElementById('macShortcut').style.display = "none";
-    
+
   }
 
   const mainToggle = document.getElementById('mainToggle');
@@ -18,21 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const huddleMessagesToggle = document.getElementById('huddleMessagesToggle')
 
   // Load saved settings
-  chrome.storage.sync.get({
-    enabled: true,
-    blurMedia: true,
-    blurLinkPreviews: true,
-    blurHuddleMessages: true,
-    blurPublicChannels: false,
-    hoverTimeout: 1
-  }, (settings) => {
-    mainToggle.checked = settings.enabled;
-    mediaToggle.checked = settings.blurMedia;
-    linkToggle.checked = settings.blurLinkPreviews;
-    hoverTimeout.value = settings.hoverTimeout;
-    publicChannelsToggle.checked = settings.blurPublicChannels;
-    huddleMessagesToggle.checked = settings.blurHuddleMessages;
-    settingsPanel.style.display = settings.enabled ? 'block' : 'none';
+  chrome.storage.local.get(defaultSettingsKeys, (settings) => {
+    if (chrome.runtime.lastError) {
+      // Error handling
+      console.error(`${LOG_PREFIX}::chrome.storage.local.get::onError`, chrome.runtime.lastError);
+      return;
+    }
+
+    if (settings) {
+      currentSettings = { ...defaultSettings, ...settings };
+    } else {
+      currentSettings = defaultSettings;
+    }
+
+    mainToggle.checked = currentSettings.enabled;
+    mediaToggle.checked = currentSettings.blurMedia;
+    linkToggle.checked = currentSettings.blurLinkPreviews;
+    hoverTimeout.value = currentSettings.hoverTimeout || 0;
+    publicChannelsToggle.checked = currentSettings.blurPublicChannels;
+    huddleMessagesToggle.checked = currentSettings.blurHuddleMessages;
+    settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
   });
 
   // Save settings and notify content script
@@ -46,14 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
       hoverTimeout: parseFloat(hoverTimeout.value)
     };
 
-    chrome.storage.sync.set(settings);
-    
+    chrome.storage.local.set(settings);
+
+    currentSettings = settings
     // Notify content script
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        type: 'settingsUpdated',
-        settings
-      });
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: 'settingsUpdated',
+          settings
+        });
+      }
     });
   };
 

@@ -1,4 +1,5 @@
-// background.js
+const LOG_PREFIX = "background.js"
+
 const defaultSettings = {
   enabled: true,
   blurMedia: true,
@@ -8,16 +9,27 @@ const defaultSettings = {
   hoverTimeout: 1
 };
 
+const defaultSettingsKeys = Object.keys(defaultSettings)
+
+let currentSettings = {};
+
+
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "toggle-privacy") {
+    console.log(`${LOG_PREFIX}::chrome.commands.onCommand.addListener::toggle-privacy triggered`)
     try {
-      const settings = await chrome.storage.sync.get(defaultSettings);
+      const settings = await chrome.storage.local.get(defaultSettingsKeys);
+      if (settings) {
+        currentSettings = { ...defaultSettings, ...settings }
+      } else {
+        currentSettings = defaultSettings
+      }
       const updatedSettings = {
-        ...settings,
-        enabled: !settings.enabled
+        ...currentSettings,
+        enabled: !currentSettings.enabled
       };
       
-      await chrome.storage.sync.set(updatedSettings);
+      await chrome.storage.local.set(updatedSettings);
 
       // Notify all tabs with complete settings
       const tabs = await chrome.tabs.query({ url: "https://*.slack.com/*" });
@@ -28,7 +40,7 @@ chrome.commands.onCommand.addListener(async (command) => {
         });
       });
     } catch (error) {
-      console.error('Error handling shortcut:', error);
+      console.error(`${LOG_PREFIX}::chrome.commands.onCommand.addListener::Error handling shortcut key`, error);
     }
   }
 });
