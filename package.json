@@ -4,8 +4,10 @@
   "description": "Slack Privacy Extension",
   "main": "popup.js",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --minify",
+    "build:css": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --minify",
     "watch": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --watch",
+    "build:chrome": "node build.js chrome",
+    "build:firefox": "node build.js firefox",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
