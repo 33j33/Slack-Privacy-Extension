@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack Privacy Settings</title>
+    <link href="tailwind.css" rel="stylesheet">
+</head>
+
+<body class="w-85 p-2 bg-gray-900 text-gray-100">
+    <header class="mb-3">
+        <h1 class="text-lg font-semibold text-gray-100">Slack Privacy Extension</h1>
+    </header>
+    <hr class="border-gray-300 mb-3">
+    <main>
+        <div class="space-y-4">
+            <!-- Main Toggle -->
+            <div class="flex items-center justify-between">
+                <label class="text-base font-medium">Privacy Toggle</label>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="mainToggle" class="sr-only peer" checked>
+                    <div
+                        class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                    </div>
+                </label>
+            </div>
+
+            <!-- Shortcut subtext -->
+            <p class="text-xs text-gray-400 -mt-2 mb-2">
+                Toggle from anywhere with
+                <span id="macShortcut" class="inline-flex items-center">
+                    <span id="macShortcutKey"
+                        class="px-1 py-0.5 bg-gray-700 rounded text-gray-300 text-xs mx-0.5">⌘⇧2</span>
+                </span>
+                <span id="windowsShortcut" class="inline-flex items-center">
+                    <span id="windowsShortcutKey"
+                        class="px-1 py-0.5 bg-gray-700 rounded text-gray-300 text-xs mx-0.5">Ctrl+Shift+2</span>
+                </span>
+
+            </p>
+
+            <hr class="border-gray-700">
+
+            <!-- Settings Panel -->
+            <div id="settingsPanel" class="space-y-4">
+                <!-- Media Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Blur Media</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="mediaToggle" class="sr-only peer" checked>
+                        <div
+                            class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Link Preview Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Blur Link Previews</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="linkToggle" class="sr-only peer" checked>
+                        <div
+                            class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Blur Public Channels Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Blur Public Channels</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="publicChannelsToggle" class="sr-only peer">
+                        <div
+                            class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Blur Huddle Messages Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Blur Huddle Messages</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="huddleMessagesToggle" class="sr-only peer">
+                        <div
+                            class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+                <p class="text-xs text-gray-500 -mt-2 mb-2">
+                    ("A Huddle Happened with.." messages)
+                </p>
+
+                <!-- Blur Reactions Bar Toggle -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Blur Reactions Bar</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="reactionBarToggle" class="sr-only peer">
+                        <div
+                            class="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-100 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+                    </label>
+                </div>
+                <p class="text-xs text-gray-500 -mt-2 mb-2">
+                    (Emojis and Replies underneath a message)
+                </p>
+
+                <!-- Hover Timeout  -->
+                <div class="flex items-center justify-between">
+                    <label class="text-sm font-normal">Hover Timeout</label>
+                    <input type="number" id="hoverTimeout" min="0" max="10" step="0.1" value="1" class="w-14 px-1 py-0.5 text-right 
+                        bg-gray-800 
+                        border border-gray-700
+                        rounded-md
+                        text-gray-100
+                        focus:outline-none focus:ring-2 focus:ring-blue-500
+                        hover:bg-gray-700">
+                </div>
+                <p class="text-xs text-gray-500 -mt-2 mb-2">
+                    (Timeout for hover transition between blur and unblur)
+                </p>
+                <hr class="border-gray-700 m-2">
+            </div>
+        </div>
+    </main>
+    <script src="popup.js"></script>
+</body>
+
+</html>
