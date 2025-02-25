@@ -24,7 +24,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('windowsShortcut').style.display = "none";
   } else {
     document.getElementById('macShortcut').style.display = "none";
+  }
 
+  // Get current shortcut key from browser API
+  try {
+    const commands = await browserAPI.commands.getAll();
+    const toggleCommand = commands.find(cmd => cmd.name === "toggle-privacy");
+
+    if (toggleCommand && toggleCommand.shortcut) {
+      const macShortcutKey = document.getElementById('macShortcutKey');
+      const windowsShortcutKey = document.getElementById('windowsShortcutKey');
+      if (macShortcutKey) macShortcutKey.innerHTML = toggleCommand.shortcut;
+      if (windowsShortcutKey) windowsShortcutKey.innerHTML = toggleCommand.shortcut;
+    }
+
+  } catch (error) {
+    console.error(`${LOG_PREFIX}::Failed to get command shortcuts`, error);
   }
 
   const mainToggle = document.getElementById('mainToggle');
@@ -39,9 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Load saved settings
   const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
-  
+
   const hasExistingSettings = Object.keys(settings).length > 0;
-  
+
   if (hasExistingSettings) {
     currentSettings = { ...defaultSettings, ...settings };
   } else {
