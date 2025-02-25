@@ -5,8 +5,10 @@ const defaultSettings = {
   blurLinkPreviews: true,
   blurHuddleMessages: true,
   blurPublicChannels: false,
+  blurReactionsBar: true,
   hoverTimeout: 1
 };
+
 
 const defaultSettingsKeys = Object.keys(defaultSettings)
 
@@ -30,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const settingsPanel = document.getElementById('settingsPanel');
   const publicChannelsToggle = document.getElementById('publicChannelsToggle')
   const huddleMessagesToggle = document.getElementById('huddleMessagesToggle')
+  const reactionBarToggle = document.getElementById('reactionBarToggle')
+
 
   // Load saved settings
   chrome.storage.local.get(defaultSettingsKeys, (settings) => {
@@ -51,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hoverTimeout.value = currentSettings.hoverTimeout || 0;
     publicChannelsToggle.checked = currentSettings.blurPublicChannels;
     huddleMessagesToggle.checked = currentSettings.blurHuddleMessages;
+    reactionBarToggle.checked = currentSettings.blurReactionsBar;
     settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
   });
 
@@ -62,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       blurLinkPreviews: linkToggle.checked,
       blurPublicChannels: publicChannelsToggle.checked,
       blurHuddleMessages: huddleMessagesToggle.checked,
+      blurReactionsBar: reactionBarToggle.checked,
       hoverTimeout: parseFloat(hoverTimeout.value)
     };
 
@@ -85,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveSettings();
   });
 
-  [mediaToggle, linkToggle, publicChannelsToggle, huddleMessagesToggle].forEach(toggle => {
+  [mediaToggle, linkToggle, publicChannelsToggle, huddleMessagesToggle, reactionBarToggle].forEach(toggle => {
     toggle.addEventListener('change', saveSettings);
   });
 

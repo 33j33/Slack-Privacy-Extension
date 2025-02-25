@@ -8,7 +8,8 @@
 .privacy-enabled .p-activity_ia4_page__item__message,
 .privacy-enabled.blur-link-previews .c-message_kit__attachments,
 .privacy-enabled.blur-media .c-files_container,
-.privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]) {
+.privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]),
+.privacy-enabled.blur-reactions-bar :is(.c-reaction_bar, .c-message__reply_bar) {
   filter: blur(var(--blur-intensity));
   transition: filter var(--hover-timeout) ease-in-out;
 }
@@ -18,7 +19,8 @@
 .privacy-enabled .p-activity_ia4_page__item__message:hover,
 .privacy-enabled.blur-link-previews .c-message_kit__attachments:hover,
 .privacy-enabled.blur-media .c-files_container:hover,
-.privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]):hover {
+.privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]):hover,
+.privacy-enabled.blur-reactions-bar :is(.c-reaction_bar:hover, .c-message__reply_bar:hover) {
   filter: none;
 }
 
@@ -26,7 +28,8 @@
 .privacy-enabled [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__blocks--rich_text,
 .privacy-enabled.blur-link-previews [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__attachments,
 .privacy-enabled.blur-media [aria-label*="channel"]:not([aria-label*="private"]) .c-files_container,
-.privacy-enabled.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]) {
+.privacy-enabled.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]),
+.privacy-enabled.blur-reactions-bar [aria-label*="channel"]:not([aria-label*="private"]) :is(.c-reaction_bar, .c-message__reply_bar) {
   filter: none;
 }
 
@@ -34,7 +37,8 @@
 .privacy-enabled.blur-public-channels [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__blocks--rich_text,
 .privacy-enabled.blur-public-channels.blur-link-previews [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__attachments,
 .privacy-enabled.blur-public-channels.blur-media [aria-label*="channel"]:not([aria-label*="private"]) .c-files_container,
-.privacy-enabled.blur-public-channels.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]) {
+.privacy-enabled.blur-public-channels.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]),
+.privacy-enabled.blur-public-channels.blur-reactions-bar [aria-label*="channel"]:not([aria-label*="private"]) :is(.c-reaction_bar, .c-message__reply_bar) {
   filter: blur(var(--blur-intensity));
   transition: filter var(--hover-timeout) ease-in-out;
 }
@@ -43,6 +47,7 @@
 .privacy-enabled.blur-public-channels [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__blocks--rich_text:hover,
 .privacy-enabled.blur-public-channels.blur-link-previews [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__attachments:hover,
 .privacy-enabled.blur-public-channels.blur-media [aria-label*="channel"]:not([aria-label*="private"]) .c-files_container:hover,
-.privacy-enabled.blur-public-channels.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]):hover {
+.privacy-enabled.blur-public-channels.blur-huddle-messages [aria-label*="channel"]:not([aria-label*="private"]) .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]):hover,
+.privacy-enabled.blur-public-channels.blur-reactions-bar [aria-label*="channel"]:not([aria-label*="private"]) :is(.c-reaction_bar:hover, .c-message__reply_bar:hover) {
   filter: none;
 }

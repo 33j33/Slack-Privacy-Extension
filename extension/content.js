@@ -5,6 +5,7 @@ const defaultSettings = {
   blurLinkPreviews: true,
   blurHuddleMessages: true,
   blurPublicChannels: false,
+  blurReactionsBar: true,
   hoverTimeout: 1
 };
 
@@ -19,7 +20,8 @@ function applyPrivacySettings() {
     'blur-media': currentSettings.blurMedia,
     'blur-link-previews': currentSettings.blurLinkPreviews,
     'blur-public-channels': currentSettings.blurPublicChannels,
-    'blur-huddle-messages': currentSettings.blurHuddleMessages
+    'blur-huddle-messages': currentSettings.blurHuddleMessages,
+    'blur-reactions-bar': currentSettings.blurReactionsBar
   };
 
   Object.entries(classesToToggle).forEach(([className, enabled]) => {
@@ -32,7 +34,7 @@ async function init() {
   try {
     const settings = await chrome.storage.local.get(defaultSettingsKeys);
     // chrome.storage.local.get() returns an empty object {} when no settings exist
-    
+
     const hasExistingSettings = Object.keys(settings).length > 0;
     
     if (hasExistingSettings) {
@@ -45,12 +47,13 @@ async function init() {
       console.log(`${LOG_PREFIX}::init::No settings found, applied defaults`, currentSettings);
     }
     
-    // Apply the settings to the page
+    // Apply the settings to the slack body
     applyPrivacySettings();
   } catch (error) {
     console.error(`${LOG_PREFIX}::init::Error initializing`, error);
     // Fallback to defaults in case of error
     currentSettings = defaultSettings;
+    // Apply the settings to the slack body
     applyPrivacySettings();
   }
 }
@@ -58,7 +61,7 @@ async function init() {
 
 // initialising 
 init().then(() => {
-  console.log(`${LOG_PREFIX}::init`)
+  console.log(`${LOG_PREFIX}::initialised successfully`)
 })
 
 

@@ -6,8 +6,10 @@ const defaultSettings = {
   blurLinkPreviews: true,
   blurHuddleMessages: true,
   blurPublicChannels: false,
+  blurReactionsBar: true,
   hoverTimeout: 1
 };
+
 
 const defaultSettingsKeys = Object.keys(defaultSettings)
 
