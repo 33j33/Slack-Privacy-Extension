@@ -6,6 +6,7 @@
 /* Base blur styles for all messages */
 .privacy-enabled .c-message_kit__blocks--rich_text,
 .privacy-enabled .p-activity_ia4_page__item__message,
+.privacy-enabled .p-activity_ia4_page__item__thread_container,
 .privacy-enabled.blur-link-previews .c-message_kit__attachments,
 .privacy-enabled.blur-media .c-files_container,
 .privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]),
@@ -17,6 +18,7 @@
 /* Hover behavior for all blurred elements */
 .privacy-enabled .c-message_kit__blocks--rich_text:hover,
 .privacy-enabled .p-activity_ia4_page__item__message:hover,
+.privacy-enabled .p-activity_ia4_page__item__thread_container:hover,
 .privacy-enabled.blur-link-previews .c-message_kit__attachments:hover,
 .privacy-enabled.blur-media .c-files_container:hover,
 .privacy-enabled.blur-huddle-messages .c-message_kit__gutter:has(span[data-stringify-text="A huddle happened"]):hover,
