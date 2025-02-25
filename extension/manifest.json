@@ -34,8 +34,8 @@
   "commands": {
     "toggle-privacy": {
       "suggested_key": {
-        "default": "Ctrl+Shift+1",
-        "mac": "Command+Shift+1"
+        "default": "Ctrl+Shift+2",
+        "mac": "Command+Shift+2"
       },
       "description": "Toggle Privacy Mode",
       "global": true
