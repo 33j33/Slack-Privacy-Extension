@@ -8,6 +8,7 @@
     "watch": "npx @tailwindcss/cli -i ./input.css -o ./extension/tailwind.css --watch",
     "build:chrome": "node build.js chrome",
     "build:firefox": "node build.js firefox",
+    "build": "npm run build:css && node build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
