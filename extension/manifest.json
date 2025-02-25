@@ -15,6 +15,7 @@
     "default_popup": "popup.html"
   },
   "background": {
+    "scripts": ["background.js"],
     "service_worker": "background.js"
   },
   "content_scripts": [
@@ -47,5 +48,11 @@
     "48": "hidden48.png",
     "64": "hidden48.png",
     "128": "hidden128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{6d7b3235-9168-464e-b422-bca4944f9f8b}",
+      "strict_min_version": "122.0"
+    }
   }
 }

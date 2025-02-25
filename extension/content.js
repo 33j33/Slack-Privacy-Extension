@@ -13,6 +13,9 @@ const defaultSettingsKeys = Object.keys(defaultSettings)
 
 let currentSettings = {};
 
+const browserAPI = (typeof browser !== 'undefined' && browser.runtime) ? browser : chrome;
+
+
 function applyPrivacySettings() {
   document.documentElement.style.setProperty('--hover-timeout', `${currentSettings.hoverTimeout}s`);
   const classesToToggle = {
@@ -32,8 +35,8 @@ function applyPrivacySettings() {
 
 async function init() {
   try {
-    const settings = await chrome.storage.local.get(defaultSettingsKeys);
-    // chrome.storage.local.get() returns an empty object {} when no settings exist
+    const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
+    // browserAPI.storage.local.get() returns an empty object {} when no settings exist
 
     const hasExistingSettings = Object.keys(settings).length > 0;
     
@@ -43,7 +46,7 @@ async function init() {
     } else {
       // No settings found in storage, use defaults and save them
       currentSettings = defaultSettings;
-      await chrome.storage.local.set(defaultSettings);
+      await browserAPI.storage.local.set(defaultSettings);
       console.log(`${LOG_PREFIX}::init::No settings found, applied defaults`, currentSettings);
     }
     
@@ -66,7 +69,7 @@ init().then(() => {
 
 
 // Listen for settings updates
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'settingsUpdated') {
     currentSettings = message.settings;
     applyPrivacySettings();

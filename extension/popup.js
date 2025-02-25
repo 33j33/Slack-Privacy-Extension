@@ -9,12 +9,14 @@ const defaultSettings = {
   hoverTimeout: 1
 };
 
+const browserAPI = (typeof browser !== 'undefined' && browser.runtime) ? browser : chrome;
+
 
 const defaultSettingsKeys = Object.keys(defaultSettings)
 
 let currentSettings = {};
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
   // show appropriate shortcut based on platform os
   const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -36,28 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // Load saved settings
-  chrome.storage.local.get(defaultSettingsKeys, (settings) => {
-    if (chrome.runtime.lastError) {
-      // Error handling
-      console.error(`${LOG_PREFIX}::chrome.storage.local.get::onError`, chrome.runtime.lastError);
-      return;
-    }
+  const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
+  
+  const hasExistingSettings = Object.keys(settings).length > 0;
+  
+  if (hasExistingSettings) {
+    currentSettings = { ...defaultSettings, ...settings };
+  } else {
+    currentSettings = defaultSettings;
+  }
 
-    if (settings) {
-      currentSettings = { ...defaultSettings, ...settings };
-    } else {
-      currentSettings = defaultSettings;
-    }
-
-    mainToggle.checked = currentSettings.enabled;
-    mediaToggle.checked = currentSettings.blurMedia;
-    linkToggle.checked = currentSettings.blurLinkPreviews;
-    hoverTimeout.value = currentSettings.hoverTimeout || 0;
-    publicChannelsToggle.checked = currentSettings.blurPublicChannels;
-    huddleMessagesToggle.checked = currentSettings.blurHuddleMessages;
-    reactionBarToggle.checked = currentSettings.blurReactionsBar;
-    settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
-  });
+  mainToggle.checked = currentSettings.enabled;
+  mediaToggle.checked = currentSettings.blurMedia;
+  linkToggle.checked = currentSettings.blurLinkPreviews;
+  hoverTimeout.value = currentSettings.hoverTimeout || 0;
+  publicChannelsToggle.checked = currentSettings.blurPublicChannels;
+  huddleMessagesToggle.checked = currentSettings.blurHuddleMessages;
+  reactionBarToggle.checked = currentSettings.blurReactionsBar;
+  settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
 
   // Save settings and notify content script
   const saveSettings = () => {
@@ -71,13 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
       hoverTimeout: parseFloat(hoverTimeout.value)
     };
 
-    chrome.storage.local.set(settings);
+    browserAPI.storage.local.set(settings);
 
     currentSettings = settings
     // Notify content script
-    chrome.tabs.query({ url: "https://*.slack.com/*" }, (tabs) => {
+    browserAPI.tabs.query({ url: "https://*.slack.com/*" }, (tabs) => {
       tabs.forEach(tab => {
-        chrome.tabs.sendMessage(tab.id, {
+        browserAPI.tabs.sendMessage(tab.id, {
           type: 'settingsUpdated',
           settings
         });

@@ -15,13 +15,16 @@ const defaultSettingsKeys = Object.keys(defaultSettings)
 
 let currentSettings = {};
 
+const browserAPI = (typeof browser !== 'undefined' && browser.runtime) ? browser : chrome;
+
 // Listeners
-chrome.commands.onCommand.addListener(async (command) => {
+browserAPI.commands.onCommand.addListener(async (command) => {
   if (command === "toggle-privacy") {
-    console.log(`${LOG_PREFIX}::chrome.commands.onCommand.addListener::toggle-privacy triggered`)
+    console.log(`${LOG_PREFIX}::browserAPI.commands.onCommand.addListener::toggle-privacy triggered`)
     try {
-      const settings = await chrome.storage.local.get(defaultSettingsKeys);
-      if (settings) {
+      const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
+      const hasExistingSettings = Object.keys(settings).length > 0;
+      if (hasExistingSettings) {
         currentSettings = { ...defaultSettings, ...settings }
       } else {
         currentSettings = defaultSettings
@@ -31,41 +34,41 @@ chrome.commands.onCommand.addListener(async (command) => {
         enabled: !currentSettings.enabled
       };
       
-      await chrome.storage.local.set(updatedSettings);
+      await browserAPI.storage.local.set(updatedSettings);
 
       // Notify all tabs with complete settings
-      const tabs = await chrome.tabs.query({ url: "https://*.slack.com/*" });
+      const tabs = await browserAPI.tabs.query({ url: "https://*.slack.com/*" });
       tabs.forEach(tab => {
-        chrome.tabs.sendMessage(tab.id, {
+        browserAPI.tabs.sendMessage(tab.id, {
           type: 'settingsUpdated',
           settings: updatedSettings
         });
       });
     } catch (error) {
-      console.error(`${LOG_PREFIX}::chrome.commands.onCommand.addListener::Error handling shortcut key`, error);
+      console.error(`${LOG_PREFIX}::browserAPI.commands.onCommand.addListener::Error handling shortcut key`, error);
     }
   }
 });
 
-chrome.runtime.onInstalled.addListener(async (details) => {
-  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+browserAPI.runtime.onInstalled.addListener(async (details) => {
+  if (details.reason === "install") {
     // Fix - changes not applied to slack when extension is installed
-    // Chrome does not automatically load content scripts into tabs that are already open when an extension is installed.
+    // Browser does not automatically load content scripts into tabs that are already open when an extension is installed.
     console.log(`${LOG_PREFIX}::onInstalled::first time installation, setting default values`);
     
     
     // Find all existing Slack tabs
-    const tabs = await chrome.tabs.query({ url: "https://*.slack.com/*" });
+    const tabs = await browserAPI.tabs.query({ url: "https://*.slack.com/*" });
     
     // Inject content script and CSS into each existing tab
     for (const tab of tabs) {
       try {
-        await chrome.scripting.executeScript({
+        await browserAPI.scripting.executeScript({
           target: { tabId: tab.id },
           files: ['content.js']
         });
         
-        await chrome.scripting.insertCSS({
+        await browserAPI.scripting.insertCSS({
           target: { tabId: tab.id },
           files: ['styles.css']
         });
