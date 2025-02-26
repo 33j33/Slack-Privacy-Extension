@@ -11,12 +11,11 @@ The extension helps protect your privacy while using Slack in a browser by blurr
 ### ✨ Features
 
 - **One-Click Privacy Toggle**: Quickly enable or disable privacy mode from the extension popup
-- **Global Keyboard Shortcut**: Toggle privacy mode with `Ctrl+Shift+2` (Windows/Linux) or `Command+Shift+2` (Mac).
-    The feature allows you to toggle privacy mode instantly without having to click the extension icon
+- **Global Keyboard Shortcut**: You can also toggle privacy mode with shortcut `Ctrl+Shift+2` (Windows/Linux) or `Command+Shift+2` (Mac). This allows you to toggle message blur instantly without having to click the extension icon from anywhere.
 
-    Example scenario: You're in the middle of presenting your screen during a meeting when suddenly you receive a private Slack message. Instead of frantically trying to minimize the window, simply press `Ctrl+Shift+2` (or `Command+Shift+2` on Mac) to immediately blur all private messages. Press the shortcut again to disable privacy mode when you're ready to view your messages.
-    
-    _**Note for Firefox users**_: The shortcut functionality is currently not supported globally in Firefox due to browser limitations though it can used when slack tab is in focus. 
+  **Example scenario**: You're in the middle of presenting your screen during a meeting when suddenly you receive a private Slack message. Instead of frantically trying to minimize the window, simply press `Ctrl+Shift+2` (or `Command+Shift+2` on Mac) to immediately blur all private messages. Press the shortcut again to disable privacy mode when you're ready to view your messages.
+      
+    _Note for Firefox users_: The shortcut functionality is currently not supported globally in Firefox due to browser limitations though it can used when slack tab is in focus. 
 
 - **Selective Content Blurring**: Choose which elements to blur:
   - Message content
