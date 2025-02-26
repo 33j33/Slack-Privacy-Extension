@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (toggleCommand && toggleCommand.shortcut) {
       const macShortcutKey = document.getElementById('macShortcutKey');
       const windowsShortcutKey = document.getElementById('windowsShortcutKey');
-      if (macShortcutKey) macShortcutKey.innerHTML = toggleCommand.shortcut;
-      if (windowsShortcutKey) windowsShortcutKey.innerHTML = toggleCommand.shortcut;
+      if (macShortcutKey) macShortcutKey.textContent = toggleCommand.shortcut;
+      if (windowsShortcutKey) windowsShortcutKey.textContent = toggleCommand.shortcut;
     }
 
   } catch (error) {
@@ -112,6 +112,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     const value = parseFloat(e.target.value);
     if (value >= 0 && value <= 10) {
       saveSettings();
+    }
+  });
+
+  // Listen for settings updates
+  browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'settingsUpdated') {
+      const settings = message.settings
+      if (settings.enabled !== undefined && settings.enabled !== null) {
+        const mainToggle = document.getElementById('mainToggle');
+        const settingsPanel = document.getElementById('settingsPanel');
+
+        currentSettings = { ...currentSettings, enabled: settings.enabled }
+
+        if (mainToggle) {
+          mainToggle.checked = currentSettings.enabled;
+        }
+
+        if (settingsPanel) {
+          settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
+        }
+      }
     }
   });
 });

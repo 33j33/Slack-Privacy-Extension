@@ -36,6 +36,8 @@ browserAPI.commands.onCommand.addListener(async (command) => {
       
       await browserAPI.storage.local.set(updatedSettings);
 
+      // To send messages to content scripts, we require `tabs.sendMessage`
+      // as background.js cannot send messages to content scripts `runtime.sendMessage`
       // Notify all tabs with complete settings
       const tabs = await browserAPI.tabs.query({ url: "https://*.slack.com/*" });
       tabs.forEach(tab => {
@@ -43,6 +45,13 @@ browserAPI.commands.onCommand.addListener(async (command) => {
           type: 'settingsUpdated',
           settings: updatedSettings
         });
+      });
+
+      // Popup.js doesn't receive messages sent via `tabs.sendMessage`. 
+      // hence sending the update via `runtime.sendMessage` 
+      browserAPI.runtime.sendMessage({
+        type: "settingsUpdated",
+        settings: updatedSettings
       });
     } catch (error) {
       console.error(`${LOG_PREFIX}::browserAPI.commands.onCommand.addListener::Error handling shortcut key`, error);
