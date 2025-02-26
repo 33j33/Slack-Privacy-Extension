@@ -49,7 +49,7 @@ function buildManifest(platform) {
     if (!manifestCopy.browser_specific_settings) {
       manifestCopy.browser_specific_settings = {
         "gecko": {
-          "id": "{6d7b3235-9168-464e-b422-bca4944f9f8b}",
+          "id": "{4d7b3235-9168-464e-b422-bca4944f9f8b}",
           "strict_min_version": "122.0"
         }
       };
