@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (toggleCommand && toggleCommand.shortcut) {
       const macShortcutKey = document.getElementById('macShortcutKey');
       const windowsShortcutKey = document.getElementById('windowsShortcutKey');
-      if (macShortcutKey) macShortcutKey.innerHTML = toggleCommand.shortcut;
-      if (windowsShortcutKey) windowsShortcutKey.innerHTML = toggleCommand.shortcut;
+      if (macShortcutKey) macShortcutKey.textContent = toggleCommand.shortcut;
+      if (windowsShortcutKey) windowsShortcutKey.textContent = toggleCommand.shortcut;
     }
 
   } catch (error) {
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const settingsPanel = document.getElementById('settingsPanel');
 
         currentSettings = { ...currentSettings, enabled: settings.enabled }
-        
+
         if (mainToggle) {
           mainToggle.checked = currentSettings.enabled;
         }
