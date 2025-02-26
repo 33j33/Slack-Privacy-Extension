@@ -114,5 +114,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       saveSettings();
     }
   });
+
+  // Listen for settings updates
+  browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'settingsUpdated') {
+      const settings = message.settings
+      if (settings.enabled !== undefined && settings.enabled !== null) {
+        const mainToggle = document.getElementById('mainToggle');
+        const settingsPanel = document.getElementById('settingsPanel');
+
+        currentSettings = { ...currentSettings, enabled: settings.enabled }
+        
+        if (mainToggle) {
+          mainToggle.checked = currentSettings.enabled;
+        }
+
+        if (settingsPanel) {
+          settingsPanel.style.display = currentSettings.enabled ? 'block' : 'none';
+        }
+      }
+    }
+  });
 });
 
