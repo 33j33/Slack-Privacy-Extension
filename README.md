@@ -8,7 +8,7 @@ A browser extension that enhances privacy when using Slack in Chrome or Firefox 
 
 The extension helps protect your privacy while using Slack in a browser by blurring messages, media, and other content until you need to view them. Perfect for those who work in public spaces, frequently share their screen during meetings, or just want an added layer of privacy for their Slack conversations.
 
-### ✨ Features
+## ✨ Features
 
 - **One-Click Privacy Toggle**: Quickly enable or disable privacy mode from the extension popup
 - **Global Keyboard Shortcut**: You can also toggle privacy mode with shortcut `Ctrl+Shift+2` (Windows/Linux) or `Command+Shift+2` (Mac). This allows you to toggle message blur instantly without having to click the extension icon from anywhere.
@@ -33,18 +33,26 @@ The extension helps protect your privacy while using Slack in a browser by blurr
 
 ### Chrome
 
-1. Clone or download the repo zip file. Unzip the repo if you downloaded it. Navigate to `path-to-repo/dist/chrome`
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" by toggling the switch in the top right corner
-4. Click "Load unpacked" and select the `/dist/chrome` directory
-5. The extension icon should now appear in your browser toolbar
+Coming soon to Chrome Web Store!
+
+For manual installation:
+1. Clone or download the repo zip file. Unzip the repo if you downloaded it.
+2. Navigate to `path-to-repo/dist/chrome`
+3. Open Chrome and navigate to `chrome://extensions/`
+4. Enable "Developer mode" by toggling the switch in the top right corner
+5. Click "Load unpacked" and select the `/dist/chrome` directory
+6. The extension icon should now appear in your browser toolbar
 
 ### Firefox
 
-1. Clone or download the repo zip file. Unzip the repo if you downloaded it. Navigate to `path-to-repo/dist/firefox`
-2. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
-3. Click "Load Temporary Add-on..." and select the `manifest.json` file from the `/dist/firefox` directory
-4. The extension should be now visible in add-ons
+Available in Firefox Add-ons Store: [Slack Privacy Extension](https://addons.mozilla.org/en-US/firefox/addon/privacy-extension-slack/)
+
+For manual installation:
+1. Clone or download the repo zip file. Unzip the repo if you downloaded it.
+2. Navigate to `path-to-repo/dist/firefox`
+3. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+4. Click "Load Temporary Add-on..." and select the `manifest.json` file from the `/dist/firefox` directory
+5. The extension should now be visible in your add-ons
 
 ## 🛠️ Usage
 
