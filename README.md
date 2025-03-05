@@ -1,6 +1,6 @@
 # Slack Privacy Extension
 
-A browser extension that enhances privacy when using Slack in Chrome or Firefox by temporarily blurring sensitive content until you hover over it.
+A browser extension that enhances privacy when using Slack in Chrome or Firefox by blurring sensitive content until you hover over it
 
 ![Slack Privacy Extension Screenshot on Firefox](screenshots/screenshot2.png)
 
