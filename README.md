@@ -33,7 +33,7 @@ The extension helps protect your privacy while using Slack in a browser by blurr
 
 ### Chrome
 
-Coming soon to Chrome Web Store!
+Available in Chrome Web Store: [Slack Privacy Extension](https://chromewebstore.google.com/detail/bbingmciigmeflfjajcckbkkddddndoh)
 
 For manual installation:
 1. Clone or download the repo zip file. Unzip the repo if you downloaded it.
@@ -45,7 +45,7 @@ For manual installation:
 
 ### Firefox
 
-Available in Firefox Add-ons Store: [Slack Privacy Extension](https://addons.mozilla.org/en-US/firefox/addon/privacy-extension-slack/)
+Available in Firefox Add-ons Store: [Privacy Extension for Slack](https://addons.mozilla.org/en-US/firefox/addon/privacy-extension-slack/)
 
 For manual installation:
 1. Clone or download the repo zip file. Unzip the repo if you downloaded it.
