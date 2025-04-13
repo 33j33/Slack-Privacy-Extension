@@ -86,4 +86,55 @@ browserAPI.runtime.onInstalled.addListener(async (details) => {
       }
     }
   }
+  try {
+    // Initialize icon state
+    await iconManager.icon();
+  }
+  catch (error) {
+    console.error(`${LOG_PREFIX}::onInstalled::Error initializing icon`, error);
+  }
 });
+
+browserAPI.runtime.onStartup.addListener(async () => {
+  try {
+    // Initialize icon state
+    await iconManager.icon();
+  }
+  catch (error) {
+    console.error(`${LOG_PREFIX}::onStartup::Error initializing icon`, error);
+  }
+});
+
+browserAPI.storage.onChanged.addListener(async () => {
+  try {
+    // Update icon state when settings change
+    const prefs = await browserAPI.storage.local.get({ enabled: true });
+    const enabled = prefs.enabled;
+
+    await iconManager.icon(enabled);
+  } catch (error) {
+    console.error(`${LOG_PREFIX}::storage.onChanged::Error updating icon`, error);
+  }
+})
+
+// Icon state management
+const iconManager = {};
+iconManager.icon = async () => {
+  const prefs = await browserAPI.storage.local.get({ enabled: true });
+  const enabled = prefs.enabled;
+
+  await browserAPI.action.setIcon({
+    path: {
+      '12': enabled ? 'hidden12.png' : 'shown12.png',
+      '16': enabled ? 'hidden16.png' : 'shown16.png',
+      '32': enabled ? 'hidden32.png' : 'shown32.png',
+      '48': enabled ? 'hidden48.png' : 'shown48.png',
+      '64': enabled ? 'hidden64.png' : 'shown64.png',
+      '128': enabled ? 'hidden128.png' : 'shown128.png'
+    },
+  });
+
+  await browserAPI.action.setTitle({
+    title: enabled ? 'Privacy Mode Enabled' : 'Privacy Mode Disabled'
+  });
+};
