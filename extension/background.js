@@ -36,6 +36,9 @@ browserAPI.commands.onCommand.addListener(async (command) => {
       
       await browserAPI.storage.local.set(updatedSettings);
 
+      // Update the icon based on the new settings (for keyboard shortcut)
+      await updateIcon();
+
       // To send messages to content scripts, we require `tabs.sendMessage`
       // as background.js cannot send messages to content scripts `runtime.sendMessage`
       // Notify all tabs with complete settings
@@ -98,13 +101,19 @@ browserAPI.runtime.onStartup.addListener(async () => {
   }
 });
 
-browserAPI.storage.onChanged.addListener(async () => {
-  try {
-    await updateIcon();
-  } catch (error) {
-    console.error(`${LOG_PREFIX}::storage.onChanged::Error updating icon`, error);
+browserAPI.runtime.onMessage.addListener((message, sendResponse) => {
+  if (message.type === 'updateIcon') {
+    updateIcon()
+      .then(() => {
+        if (sendResponse) sendResponse({ success: true });
+      })
+      .catch(error => {
+        console.error(`${LOG_PREFIX}::Error updating icon from popup:`, error);
+        if (sendResponse) sendResponse({ success: false, error: error.message });
+      });
+    return true; // Keep message channel open for async response
   }
-})
+});
 
 // Icon state management
 const updateIcon = async () => {
