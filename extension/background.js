@@ -91,7 +91,7 @@ browserAPI.runtime.onInstalled.addListener(async (details) => {
 browserAPI.runtime.onStartup.addListener(async () => {
   try {
     // Initialize icon state
-    await iconManager.icon();
+    await updateIcon();
   }
   catch (error) {
     console.error(`${LOG_PREFIX}::onStartup::Error initializing icon`, error);
@@ -100,19 +100,14 @@ browserAPI.runtime.onStartup.addListener(async () => {
 
 browserAPI.storage.onChanged.addListener(async () => {
   try {
-    // Update icon state when settings change
-    const prefs = await browserAPI.storage.local.get(defaultSettingsKeys);
-    const enabled = prefs.enabled;
-
-    await iconManager.icon(enabled);
+    await updateIcon();
   } catch (error) {
     console.error(`${LOG_PREFIX}::storage.onChanged::Error updating icon`, error);
   }
 })
 
 // Icon state management
-const iconManager = {};
-iconManager.icon = async () => {
+const updateIcon = async () => {
   const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
   const enabled = settings.enabled;
 
