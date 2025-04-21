@@ -86,13 +86,6 @@ browserAPI.runtime.onInstalled.addListener(async (details) => {
       }
     }
   }
-  try {
-    // Initialize icon state
-    await iconManager.icon();
-  }
-  catch (error) {
-    console.error(`${LOG_PREFIX}::onInstalled::Error initializing icon`, error);
-  }
 });
 
 browserAPI.runtime.onStartup.addListener(async () => {
