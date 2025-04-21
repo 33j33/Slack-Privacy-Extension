@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentSettings = settings
     // Request icon update
     browserAPI.runtime.sendMessage({
-      type: 'updateIcon'
+      type: 'settingsUpdated',
     });
 
     // Notify content script

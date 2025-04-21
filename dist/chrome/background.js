@@ -101,8 +101,8 @@ browserAPI.runtime.onStartup.addListener(async () => {
   }
 });
 
-browserAPI.runtime.onMessage.addListener((message, sendResponse) => {
-  if (message.type === 'updateIcon') {
+browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'settingsUpdated') {
     updateIcon()
       .then(() => {
         if (sendResponse) sendResponse({ success: true });
