@@ -108,7 +108,7 @@ browserAPI.runtime.onStartup.addListener(async () => {
 browserAPI.storage.onChanged.addListener(async () => {
   try {
     // Update icon state when settings change
-    const prefs = await browserAPI.storage.local.get({ enabled: true });
+    const prefs = await browserAPI.storage.local.get(defaultSettingsKeys);
     const enabled = prefs.enabled;
 
     await iconManager.icon(enabled);
@@ -120,8 +120,8 @@ browserAPI.storage.onChanged.addListener(async () => {
 // Icon state management
 const iconManager = {};
 iconManager.icon = async () => {
-  const prefs = await browserAPI.storage.local.get({ enabled: true });
-  const enabled = prefs.enabled;
+  const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
+  const enabled = settings.enabled;
 
   await browserAPI.action.setIcon({
     path: {
