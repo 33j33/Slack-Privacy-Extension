@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     browserAPI.storage.local.set(settings);
 
     currentSettings = settings
+    // Request icon update
+    browserAPI.runtime.sendMessage({
+      type: 'settingsUpdated',
+    });
+
     // Notify content script
     browserAPI.tabs.query({ url: "https://*.slack.com/*" }, (tabs) => {
       tabs.forEach(tab => {

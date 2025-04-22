@@ -12,7 +12,16 @@
     "https://*.slack.com/*"
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Privacy Mode Enabled",
+    "default_icon": {
+      "12": "hidden12.png",
+      "16": "hidden16.png",
+      "32": "hidden32.png",
+      "48": "hidden48.png",
+      "64": "hidden64.png",
+      "128": "hidden128.png"
+    }
   },
   "background": {
     "service_worker": "background.js"

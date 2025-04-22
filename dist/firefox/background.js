@@ -36,6 +36,9 @@ browserAPI.commands.onCommand.addListener(async (command) => {
       
       await browserAPI.storage.local.set(updatedSettings);
 
+      // Update the icon based on the new settings (for keyboard shortcut)
+      await updateIcon();
+
       // To send messages to content scripts, we require `tabs.sendMessage`
       // as background.js cannot send messages to content scripts `runtime.sendMessage`
       // Notify all tabs with complete settings
@@ -87,3 +90,48 @@ browserAPI.runtime.onInstalled.addListener(async (details) => {
     }
   }
 });
+
+browserAPI.runtime.onStartup.addListener(async () => {
+  try {
+    // Initialize icon state
+    await updateIcon();
+  }
+  catch (error) {
+    console.error(`${LOG_PREFIX}::onStartup::Error initializing icon`, error);
+  }
+});
+
+browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'settingsUpdated') {
+    updateIcon()
+      .then(() => {
+        if (sendResponse) sendResponse({ success: true });
+      })
+      .catch(error => {
+        console.error(`${LOG_PREFIX}::Error updating icon from popup:`, error);
+        if (sendResponse) sendResponse({ success: false, error: error.message });
+      });
+    return true; // Keep message channel open for async response
+  }
+});
+
+// Icon state management
+const updateIcon = async () => {
+  const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
+  const enabled = settings.enabled;
+
+  await browserAPI.action.setIcon({
+    path: {
+      '12': enabled ? 'hidden12.png' : 'shown12.png',
+      '16': enabled ? 'hidden16.png' : 'shown16.png',
+      '32': enabled ? 'hidden32.png' : 'shown32.png',
+      '48': enabled ? 'hidden48.png' : 'shown48.png',
+      '64': enabled ? 'hidden64.png' : 'shown64.png',
+      '128': enabled ? 'hidden128.png' : 'shown128.png'
+    },
+  });
+
+  await browserAPI.action.setTitle({
+    title: enabled ? 'Privacy Mode Enabled' : 'Privacy Mode Disabled'
+  });
+};
