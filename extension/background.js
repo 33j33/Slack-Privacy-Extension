@@ -104,18 +104,9 @@ browserAPI.runtime.onStartup.addListener(async () => {
 browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'settingsUpdated') {
     updateIcon()
-      .then(() => {
-        if (sendResponse) sendResponse({ success: true });
-      })
-      .catch(error => {
-        console.error(`${LOG_PREFIX}::Error updating icon from popup:`, error);
-        if (sendResponse) sendResponse({ success: false, error: error.message });
-      });
-    return true; // Keep message channel open for async response
   }
 });
 
-// Icon state management
 const updateIcon = async () => {
   const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
   const enabled = settings.enabled;
@@ -129,9 +120,5 @@ const updateIcon = async () => {
       '64': enabled ? 'hidden64.png' : 'shown64.png',
       '128': enabled ? 'hidden128.png' : 'shown128.png'
     },
-  });
-
-  await browserAPI.action.setTitle({
-    title: enabled ? 'Privacy Mode Enabled' : 'Privacy Mode Disabled'
   });
 };

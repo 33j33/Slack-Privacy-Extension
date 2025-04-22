@@ -104,18 +104,9 @@ browserAPI.runtime.onStartup.addListener(async () => {
 browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'settingsUpdated') {
     updateIcon()
-      .then(() => {
-        if (sendResponse) sendResponse({ success: true });
-      })
-      .catch(error => {
-        console.error(`${LOG_PREFIX}::Error updating icon from popup:`, error);
-        if (sendResponse) sendResponse({ success: false, error: error.message });
-      });
-    return true; // Keep message channel open for async response
   }
 });
 
-// Icon state management
 const updateIcon = async () => {
   const settings = await browserAPI.storage.local.get(defaultSettingsKeys);
   const enabled = settings.enabled;
