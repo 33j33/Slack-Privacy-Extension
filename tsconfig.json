@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "target": "ES6",
+    "target": "es2017",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true
   },
-  "include": ["extension/**/*.ts"],
+  "include": ["extension/**/*.ts", "types.d.ts"],
   "exclude": ["node_modules"]
 }
