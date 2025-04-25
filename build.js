@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const shell = require('shelljs');
 
 const PLATFORMS = {
     chrome: "chrome",
@@ -83,8 +84,7 @@ if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist');
 }
 
-// Build for each platform
-buildPlatforms.forEach(platform => {
+async function buildFor(platform) {
   if (platform !== PLATFORMS.chrome && platform !== PLATFORMS.firefox) {
     console.log(`Unknown platform: ${platform}, skipping`);
     return;
@@ -112,6 +112,8 @@ buildPlatforms.forEach(platform => {
   files.forEach(file => {
     // Skip manifest.json as we're creating platform-specific versions
     if (file === 'manifest.json') return;
+    // Skip typescript file which will be created latter
+    if (file.endsWith(".ts")) return;
     
     const sourcePath = path.join(extensionDir, file);
     const targetPath = path.join(platformDir, file);
@@ -126,8 +128,27 @@ buildPlatforms.forEach(platform => {
     fs.copyFileSync(sourcePath, targetPath);
     console.log(`Copied ${file} to ${targetPath} for ${platform} build`);
   });
-  
-  console.log(`Build completed for ${platform}`);
-});
 
-console.log('Build/s completed successfully!');
+  await new Promise((resolve, reject) => {
+    // Build the TypeScript files
+    shell.exec(
+      `tsc --outDir ${platformDir}`,
+      { silent: true },
+      (code, stdout, stderr) => {
+        if (code !== 0) {
+          console.error(
+            `Error building TypeScript files for ${platform}: ${stderr}`
+          );
+          reject(new Error(`Build failed for ${platform}`));
+        }
+        console.log(`TypeScript files built for ${platform}`);
+        resolve();
+      }
+    );
+  });
+
+  console.log(`Build completed for ${platform}`);
+}
+
+// Build for each platform
+buildPlatforms.forEach(platform => buildFor(platform));

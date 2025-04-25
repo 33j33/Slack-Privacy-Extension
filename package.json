@@ -22,7 +22,10 @@
   "author": "33j33",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/cli": "latest",
+    "@types/chrome": "^0.0.317",
+    "shelljs": "^0.9.2",
     "tailwindcss": "latest",
-    "@tailwindcss/cli": "latest"
+    "typescript": "^5.8.3"
   }
 }
