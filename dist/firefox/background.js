@@ -121,8 +121,4 @@ const updateIcon = async () => {
       '128': enabled ? 'hidden128.png' : 'shown128.png'
     },
   });
-
-  await browserAPI.action.setTitle({
-    title: enabled ? 'Privacy Mode Enabled' : 'Privacy Mode Disabled'
-  });
 };
