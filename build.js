@@ -81,7 +81,7 @@ function buildManifest(platform) {
 // Ensure build directories exist
 if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist');
-}
+} 
 
 // Build for each platform
 buildPlatforms.forEach(platform => {
@@ -92,9 +92,10 @@ buildPlatforms.forEach(platform => {
   
   // Create platform directory if it doesn't exist
   const platformDir = path.join('dist', platform);
-  if (!fs.existsSync(platformDir)) {
-    fs.mkdirSync(platformDir);
-  }
+  fs.rmSync(platformDir, { recursive: true, force: true });
+  
+  fs.mkdirSync(platformDir);
+  
   
   // Generate and write the platform-specific manifest
   const platformManifest = buildManifest(platform);
