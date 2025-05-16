@@ -1,6 +1,6 @@
 {
   "name": "slack-extension",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Slack Privacy Extension",
   "main": "popup.js",
   "scripts": {
