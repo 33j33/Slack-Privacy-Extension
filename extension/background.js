@@ -116,9 +116,9 @@ const updateIcon = async () => {
       '12': enabled ? 'hidden12.png' : 'shown12.png',
       '16': enabled ? 'hidden16.png' : 'shown16.png',
       '32': enabled ? 'hidden32.png' : 'shown32.png',
-      '48': enabled ? 'hidden48.png' : 'shown48.png',
-      '64': enabled ? 'hidden64.png' : 'shown64.png',
-      '128': enabled ? 'hidden128.png' : 'shown128.png'
+      '48': 'hidden48.png',
+      '64': 'hidden64.png',
+      '128': 'hidden128.png'
     },
   });
 };
