@@ -28,6 +28,7 @@ The extension helps protect your privacy while using Slack in a browser by blurr
 - **Customizable Timing**: Adjust how quickly content reveals on hover (from instant to 10 seconds)
 - **Smart Channel Detection**: Public channels can remain unblurred by default
 - **Lightweight**: Minimal performance impact on your Slack experience
+- **Visual Indicator for Toggle**: Extension Icon in the toolbar changes whenever privacy is enabled or disabled
 
 ## 🔧 Installation
 
@@ -111,7 +112,7 @@ Yes, the extension is fully compatible with both light and dark Slack themes.
 
 - [ ] Auto-enable during screen sharing
 - [ ] Context-aware privacy mode (time-based, location-based)
-- [ ] Visual indicators for when privacy mode is active
+- [x] Visual indicators for when privacy mode is active
 - [ ] Add Additional items that may require blurring such as usernames, user profile pictures, channel names. 
 - [ ] Custom blurring for selected channels only
 
