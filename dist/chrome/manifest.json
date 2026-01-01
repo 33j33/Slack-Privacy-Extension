@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Slack Privacy Extension",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Protect your privacy in Slack by hiding your conversations",
   "permissions": [
     "storage",

@@ -22,7 +22,7 @@
   "author": "33j33",
   "license": "MIT",
   "devDependencies": {
-    "tailwindcss": "latest",
-    "@tailwindcss/cli": "latest"
+    "tailwindcss": "^4.1.18",
+    "@tailwindcss/cli": "^4.1.18"
   }
 }
