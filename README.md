@@ -4,11 +4,11 @@ A browser extension that enhances privacy when using Slack in Chrome or Firefox 
 
 ![Slack Privacy Extension Screenshot on Firefox](screenshots/screenshot2.png)
 
-## 📝 Description
+## Description
 
 The extension helps protect your privacy while using Slack in a browser by blurring messages, media, and other content until you need to view them. Perfect for those who work in public spaces, frequently share their screen during meetings, or just want an added layer of privacy for their Slack conversations.
 
-## ✨ Features
+## Features
 
 - **One-Click Privacy Toggle**: Quickly enable or disable privacy mode from the extension popup
 - **Global Keyboard Shortcut**: You can also toggle privacy mode with shortcut `Ctrl+Shift+2` (Windows/Linux) or `Command+Shift+2` (Mac). This allows you to toggle message blur instantly without having to click the extension icon from anywhere.
@@ -30,7 +30,7 @@ The extension helps protect your privacy while using Slack in a browser by blurr
 - **Lightweight**: Minimal performance impact on your Slack experience
 - **Visual Indicator for Toggle**: Extension Icon in the toolbar changes whenever privacy is enabled or disabled
 
-## 🔧 Installation
+## Installation
 
 ### Chrome
 
@@ -55,7 +55,7 @@ For manual installation:
 4. Click "Load Temporary Add-on..." and select the `manifest.json` file from the `/dist/firefox` directory
 5. The extension should now be visible in your add-ons
 
-## 🛠️ Usage
+## Usage
 
 1. Click the extension icon in your browser toolbar to open the settings popup
 2. Toggle the main switch to enable/disable privacy mode
@@ -65,7 +65,7 @@ For manual installation:
 4. Use the keyboard shortcut (`Ctrl+Shift+2` or `Command+Shift+2`) to quickly toggle privacy mode from anywhere. 
 
 
-## ❓ FAQ
+## FAQ
 
 ### Can I change the keyboard shortcut?
 
@@ -110,11 +110,11 @@ Yes, the extension is fully compatible with both light and dark Slack themes.
 
 ## 🗓️ Roadmap
 
+- [x] Visual indicators for when privacy mode is active
+- [ ] Custom blurring for selected channels only
 - [ ] Auto-enable during screen sharing
 - [ ] Context-aware privacy mode (time-based, location-based)
-- [x] Visual indicators for when privacy mode is active
 - [ ] Add Additional items that may require blurring such as usernames, user profile pictures, channel names. 
-- [ ] Custom blurring for selected channels only
 
 ## 🤝 Contributing
 
