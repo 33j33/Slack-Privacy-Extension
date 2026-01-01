@@ -140,5 +140,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   });
+
+  // Handle shortcuts link click
+  const shortcutsLink = document.getElementById('shortcutsLink');
+  if (shortcutsLink) {
+    shortcutsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      browserAPI.tabs.create({ url: 'chrome://extensions/shortcuts' });
+    });
+  }
 });
 
